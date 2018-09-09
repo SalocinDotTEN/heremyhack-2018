@@ -49,26 +49,10 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 var ui = H.ui.UI.createDefault(map, maptypes);
 
-// var geocoder = platform.getGeocodingService();
 var metainfoService = platform.getMetaInfoService();
 
 facilityLocations = new H.map.Group();
 map.addObject(facilityLocations);
-
-// var onLocate = function(result) {
-// 	var locating = result.Response.View[0].Result,
-// 	position,
-// 	marker;
-
-// 	for (i = 0; i < locating.length; i++) {
-// 		position = {
-// 			lat: locating[i].Location.DisplayPosition.Latitude,
-// 			lng: locating[i].Location.DisplayPosition.Longitude
-// 		};
-// 		marker = new H.map.Marker(position, {icon: facilityIcon});
-// 		facilityLocations.addObject(marker);
-// 	}
-// }
 
 flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 	if (error) {
@@ -82,11 +66,6 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 			};
 			marker = new H.map.Marker(position, {icon: facilityIcon});
 			facilityLocations.addObject(marker);
-			// geocoder.geocode({
-			// 	searchText: facilities[locationId].facilityAddress
-			// }, onLocate, function(err) {
-			// 	alert(err);
-			// });
 		}
 	}
 });
