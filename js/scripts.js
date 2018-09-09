@@ -54,6 +54,12 @@ var metainfoService = platform.getMetaInfoService();
 facilityLocations = new H.map.Group();
 map.addObject(facilityLocations);
 
+function addMarkerToGroup(group, coordinate, html) {
+	var groupMarker = new H.map.Marker(coordinate, {icon: facilityIcon});
+	groupMarker.setData(html);
+	group.addObject(groupMarker);
+}
+
 flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 	if (error) {
 		return console.error('Some error: ', error);
@@ -64,8 +70,18 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 				lat: facilities[locationId].latitude,
 				lng: facilities[locationId].longitude
 			};
-			marker = new H.map.Marker(position, {icon: facilityIcon});
-			facilityLocations.addObject(marker);
+			// marker = new H.map.Marker(position, {icon: facilityIcon});
+			facilityLocations.addEventListener('tap', function(event) {
+				var infobox = new H.ui.InfoBubble(event.target.getPosition(), {
+					content: event.target.getData()
+				});
+				ui.addBubble(infobox);
+			}, false);
+			addMarkerToGroup(facilityLocations, position, 
+                '<h3 class="uk-light">'+facilities[locationId].facilityName+'</h3>'+
+                '<p>'+facilities[locationId].facilityDescription+'</p>'
+				);
+			// facilityLocations.addObject(marker);
 		}
 	}
 });
