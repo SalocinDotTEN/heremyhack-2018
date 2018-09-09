@@ -29,12 +29,16 @@ var map = new H.Map(
 		}
 	});
 
+
 function updatePosition(event) {
-  var userLocation = {
-    lat: event.coords.latitude,
-    lng: event.coords.longitude
-  };
-  map.setCenter(userLocation);
+	var youarehere = new H.map.Icon("images/youarehere.png");
+	var userLocation = {
+		lat: event.coords.latitude,
+		lng: event.coords.longitude
+	};
+	map.setCenter(userLocation);
+	var youareheremark = new H.map.Marker(userLocation, {icon: youarehere});
+	map.addObject(youareheremark);
 }
 
 navigator.geolocation.watchPosition(updatePosition);
