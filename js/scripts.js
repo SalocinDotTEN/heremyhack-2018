@@ -65,8 +65,10 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 				});
 				ui.addBubble(infobox);
 			}, false);
+			var facilityImgUrl = flamelinkApp.storage.getURL(facilities[locationId].facilityImage);
 			addMarkerToGroup(facilityLocations, position, 
                 '<p class="uk-text-large uk-text-bold">'+facilities[locationId].facilityName+'</h3>'+
+                '<img src="'+facilityImgUrl+'" uk-img>'+
                 '<p>'+facilities[locationId].facilityDescription+'</p>'
 				);
 			// facilityLocations.addObject(marker);
@@ -86,12 +88,71 @@ function addRouteShapeToMap(route){
 
 	polyline = new H.map.Polyline(lineString, {
 		style: {
-			lineWidth: 4,
-			strokeColor: 'rgba(0, 128, 255, 0.7)'
-		}
+			lineWidth: 10,
+			strokeColor: 'green'
+		},
+		arrows: { fillColor: 'white', frequency: 2, width: 0.8, length: 0.7 }
 	});
 	map.addObject(polyline);
 	map.setViewBounds(polyline.getBounds(), true);
+}
+
+function addWaypointsToPanel(waypoints) {
+	var nodeH3 = document.createElement('h3'),
+	waypointLabels = [],
+    i;
+    for (i = 0;  i < waypoints.length; i += 1) {
+    	waypointLabels.push(waypoints[i].label)
+    }
+    nodeH3.textContent = waypointLabels.join(' - ');
+    // routeInstructionsContainer.innerHTML = '';
+    UIkit.notification(nodeH3, {
+    	pos: 'top-right'
+    });
+}
+
+function addSummaryToPanel(summary){
+	var summaryDiv = document.createElement('div'),
+	content = '';
+	content += '<b>Total distance</b>: ' + summary.distance  + 'm. <br/>';
+	content += '<b>Travel Time</b>: ' + summary.travelTime.toMMSS() + ' (in current traffic)';
+	summaryDiv.style.fontSize = 'small';
+	summaryDiv.style.marginLeft ='5%';
+	summaryDiv.style.marginRight ='5%';
+	summaryDiv.innerHTML = content;
+	UIkit.notification(summaryDiv, {
+		pos: 'top-right'
+	});
+}
+
+function addManueversToPanel(route){
+	var nodeOL = document.createElement('ol'),
+	i,
+	j;
+
+	nodeOL.style.fontSize = 'small';
+	nodeOL.style.marginLeft ='5%';
+	nodeOL.style.marginRight ='5%';
+	nodeOL.className = 'directions';
+
+	// Add a marker for each maneuver
+	for (i = 0;  i < route.leg.length; i += 1) {
+		for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+			// Get the next maneuver.
+			maneuver = route.leg[i].maneuver[j];
+			var li = document.createElement('li'),
+			spanArrow = document.createElement('span'),
+			spanInstruction = document.createElement('span');
+			spanArrow.className = 'arrow '  + maneuver.action;
+			spanInstruction.innerHTML = maneuver.instruction;
+			li.appendChild(spanArrow);
+			li.appendChild(spanInstruction);
+			nodeOL.appendChild(li);
+		}
+	}
+	UIkit.notification(nodeOL, {
+		pos: 'top-right'
+	});
 }
 
 function addManueversToMap(route){
@@ -129,10 +190,13 @@ function addManueversToMap(route){
 }
 
 function facilityRouter(result) {
-	console.log(result);
+	// console.log(result);
 	var routing = result.response.route[0];
 	addRouteShapeToMap(routing);
 	addManueversToMap(routing);
+	// addWaypointsToPanel(routing.waypoint);
+	// addManueversToPanel(routing);
+	// addSummaryToPanel(routing.summary);
 };
 
 function updatePosition(event) {
