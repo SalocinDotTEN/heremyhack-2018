@@ -9,8 +9,8 @@ const flamelinkApp = flamelink({
 
 //Here map init.
 var platform = new H.service.Platform({
-  'app_id': 'NeRPU29PEGJp2dUcxQ0I ',
-  'app_code': 'Rxe-ZiugFebz076B3aWQGw ',
+  'app_id': 'NeRPU29PEGJp2dUcxQ0I',
+  'app_code': 'Rxe-ZiugFebz076B3aWQGw',
   'useHTTPS': true
 });
 
@@ -127,10 +127,13 @@ function addManueversToMap(route){
 }
 
 function facilityRouter(result) {
-	var route = result.response.route[0];
-	addRouteShapeToMap(route);
-	addManueversToMap(route);
+	console.log(result);
+	var routing = result.response.route[0];
+	addRouteShapeToMap(routing);
+	addManueversToMap(routing);
 };
+
+var router = platform.getRoutingService(); //To calculate routes.
 
 function updatePosition(event) {
 	var youarehere = new H.map.Icon("images/youarehere.png");
@@ -149,7 +152,6 @@ function updatePosition(event) {
 	map.setCenter(userLocation);
 	var youareheremark = new H.map.Marker(userLocation, {icon: youarehere});
 	map.addObject(youareheremark);
-	var router = platform.getRoutingService(); //To calculate routes.
     // Show route to the nearest.
 	for (i = 0; i < len; i += 1) {
 		markerDist = objects[i].getPosition().distance(userLocation);
