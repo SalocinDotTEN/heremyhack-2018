@@ -37,6 +37,8 @@ var ui = H.ui.UI.createDefault(map, maptypes);
 
 var metainfoService = platform.getMetaInfoService();
 
+var router = platform.getRoutingService(); //To calculate routes.
+
 facilityLocations = new H.map.Group();
 map.addObject(facilityLocations);
 
@@ -132,8 +134,6 @@ function facilityRouter(result) {
 	addRouteShapeToMap(routing);
 	addManueversToMap(routing);
 };
-
-var router = platform.getRoutingService(); //To calculate routes.
 
 function updatePosition(event) {
 	var youarehere = new H.map.Icon("images/youarehere.png");
