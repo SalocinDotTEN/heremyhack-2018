@@ -167,7 +167,6 @@ function updatePosition(event) {
 				waypoint1: objects[i].getPosition().lat+','+objects[i].getPosition().lng,
 				representation: 'display'
 			};
-			UIkit.notification(routeParams);
 			router.calculateRoute(routeParams, facilityRouter, function(routeErr) {
 				alert(routeErr.message);
 			});

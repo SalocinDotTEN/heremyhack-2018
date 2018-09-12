@@ -15,7 +15,14 @@
     	<div class="uk-container uk-container-expand">
     		<p class="uk-text-center uk-margin-remove-vertical"><img src="images/logo.png" uk-img>&nbsp;&nbsp;Locate your nearest recycling facility!</p>
     		<div class="uk-width-1-1 uk-height-max-medium" id="mapContainer"></div>
+        <a class="uk-position-absolute uk-transform-center" style="left: 80%; top: 20%" href="#sign-up" uk-marker uk-toggle>Add new facility</a>
     	</div>
+    </div>
+    <div id="sign-up" class="uk-modal-container" uk-modal>
+      <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
+        <button class="uk-modal-close-outside" type="button" uk-close></button>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeq1dLl9CaDExkQsTfDBwoyqLsnsbr8-JtoBUXkr8yOVhVEAA/viewform?embedded=true" style="width:100%; height:806px;" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+      </div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.14/js/uikit.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.14/js/uikit-icons.min.js"></script>
