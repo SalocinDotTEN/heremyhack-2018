@@ -157,7 +157,7 @@ function addManueversToPanel(route){
 
 function addManueversToMap(route){
 	var svgMarkup = '<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">' +
-	'<circle cx="8" cy="8" r="8" fill="#1b468d" stroke="white" stroke-width="1"  />' +
+	'<circle cx="8" cy="8" r="8" fill="green" stroke="white" stroke-width="1"  />' +
 	'</svg>',
 	dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}}),
 	group = new  H.map.Group(),
