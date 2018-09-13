@@ -65,7 +65,10 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 				});
 				ui.addBubble(infobox);
 			}, false);
-			var facilityImgUrl = flamelinkApp.storage.getURL(facilities[locationId].facilityImage);
+			var facilityImg = flamelinkApp.storage.getURL(facilities[locationId].facilityImage);
+			var facilityImgUrl = facilityImg.then(function(result) {
+				return result;
+			});
 			addMarkerToGroup(facilityLocations, position, 
                 '<p class="uk-text-large uk-text-bold">'+facilities[locationId].facilityName+'</h3>'+
                 '<img src="'+facilityImgUrl+'" uk-img>'+
