@@ -59,15 +59,15 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 	if (error) {
 		return console.error('Some error: ', error);
 	}
-	for(var locationId in facilities) {
-		if (facilities.hasOwnProperty(locationId)) {
-			facilities[locationId].facilityImgUrl = '';
-			flamelinkApp.storage.getURL(facilities[locationId].facilityImage)
-			.then(function(url) {
-				facilities[locationId].facilityImgUrl = url;
-			});
-		}
-	}
+	// for(var locationId in facilities) {
+	// 	if (facilities.hasOwnProperty(locationId)) {
+	// 		facilities[locationId].facilityImgUrl = '';
+	// 		flamelinkApp.storage.getURL(facilities[locationId].facilityImage)
+	// 		.then(function(url) {
+	// 			facilities[locationId].facilityImgUrl = url;
+	// 		});
+	// 	}
+	// }
 	for(var locationId in facilities) {
 		if (facilities.hasOwnProperty(locationId)) {
 			position = {
@@ -87,7 +87,7 @@ flamelinkApp.content.subscribe('facilities', function(error, facilities) {
 			// console.log(facilities[locationId]);
 			addMarkerToGroup(facilityLocations, position, 
                 '<p class="uk-text-large uk-text-bold">'+facilities[locationId].facilityName+'</p>'+
-                '<img src="'+facilities[locationId].facilityImgUrl+'" uk-img>'+
+                // '<img src="'+facilities[locationId].facilityImgUrl+'" uk-img>'+
                 '<p>'+facilities[locationId].facilityDescription+'</p>'
 				);
 			// facilityLocations.addObject(marker);
